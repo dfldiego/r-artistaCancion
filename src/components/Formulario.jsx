@@ -1,11 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Formulario = () => {
+
+    const [busqueda, setBusqueda] = useState({
+        artista: '',
+        cancion: ''
+    });
+    const [error, setError] = useState(false);
+
+    const { artista, cancion } = busqueda;
+
+    //funcion a cada input para leer su contenido
+    const actualizarState = e => {
+        setBusqueda({
+            ...busqueda,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    //consultar las apis
+    const handleSubmit = e => {
+        e.preventDefault();
+
+        //validacion
+        if (artista.trim() === '' || cancion.trim() === '') {
+            setError(true);
+            return;
+        }
+        setError(false);
+
+        //pasar a componente principal
+    }
+
     return (
         <div className="bg-info">
             <div className="container">
                 <div className="row">
                     <form
+                        onSubmit={handleSubmit}
                         className="col card text-white bg-transparent mb-5 pt-5 pb-2"
                     >
                         <fieldset>
@@ -20,6 +52,8 @@ const Formulario = () => {
                                             className="form-control"
                                             name="artista"
                                             placeholder="Nombre Artista"
+                                            onChange={actualizarState}
+                                            value={artista}
                                         />
                                     </div>
                                 </div>
@@ -31,6 +65,8 @@ const Formulario = () => {
                                             className="form-control"
                                             name="cancion"
                                             placeholder="Nombre Canción"
+                                            onChange={actualizarState}
+                                            value={cancion}
                                         />
                                     </div>
                                 </div>
