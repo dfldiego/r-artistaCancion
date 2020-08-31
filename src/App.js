@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Formulario from './components/Formulario';
 import Cancion from './components/Cancion';
+import InfoArtista from './components/InfoArtista';
 import axios from 'axios';
 
 function App() {
@@ -28,7 +29,7 @@ function App() {
       console.log(informacion.data.artist[0]); */
 
       setLetra(letra.data.lyrics);
-      setInfoArtista(informacion.data.artist[0]);
+      setInfoArtista(informacion.data.artists[0], infoartista);
     }
     consultarApiLetra();
 
@@ -42,7 +43,9 @@ function App() {
       <div className="container mt-5">
         <div className="row">
           <div className="col-md-6">
-
+            <InfoArtista
+              infoartista={infoartista}
+            />
           </div>
           <div className="col-md-6">
             <Cancion
